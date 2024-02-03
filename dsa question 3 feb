@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int maxVowels(string s, int k) {
+        int maxval=0;
+        int count=0;
+        int n=0;
+        vector <char>vowelcharacter={'a','e','i','o','u'};
+        vector<char>ksizearray;
+        vector<char>::iterator it;
+        vector <char>::iterator rt;
+        for (int i=0;i<k;i++)
+        { 
+            ksizearray.push_back(s[i]);
+            it = find(vowelcharacter.begin(), 
+                 vowelcharacter.end(), s[i]);
+            if (it != vowelcharacter.end()) 
+            {
+               count=count+1;
+            }
+        }
+        maxval=count;
+         for(int i=k;i<s.size();i++)
+         { //cout<<s[i];
+            rt=find(vowelcharacter.begin(), 
+                 vowelcharacter.end(), ksizearray[0]);
+            it = ksizearray.begin();
+
+            ksizearray.erase(it);
+            //cout<<ksizearray.size();
+            ksizearray.push_back(s[i]);
+            
+            it = find(vowelcharacter.begin(), 
+                 vowelcharacter.end(), s[i]);
+            if(it != vowelcharacter.end() && rt==vowelcharacter.end())
+            {
+                count=count+1;
+            }
+            else if(it == vowelcharacter.end() && rt!=vowelcharacter.end())
+            {
+                count=count-1;
+            }
+            
+            if(count>maxval)
+            {
+                maxval=count;
+            }
+
+         }
+      return maxval; 
+    }
+};
+```
